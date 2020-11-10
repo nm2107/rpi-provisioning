@@ -1,0 +1,58 @@
+---
+- name: Install iptables-persistent package
+  package:
+    name: iptables-persistent
+    state: present
+  tags:
+    - security
+    - firewall
+
+- name: Configure firewall (accept SSH in from local network)
+  iptables:
+    action: insert
+    chain: INPUT
+    jump: ACCEPT
+    protocol: tcp
+    source: "192.168.1.0/24"
+    destination_port: 22
+  notify: persist iptables rules
+  tags:
+    - security
+    - firewall
+
+- name: Configure firewall (allow localhost)
+  iptables:
+    action: append
+    chain: INPUT
+    jump: ACCEPT
+    in_interface: lo
+  notify: persist iptables rules
+  tags:
+    - security
+    - firewall
+
+- name: Configure firewall (reject SSH in from everywhere otherwise, IPv4)
+  iptables:
+    action: append
+    chain: INPUT
+    jump: REJECT
+    protocol: tcp
+    destination_port: 22
+    ip_version: ipv4
+  notify: persist iptables rules
+  tags:
+    - security
+    - firewall
+
+- name: Configure firewall (reject SSH in from everywhere otherwise, IPv6)
+  iptables:
+    action: append
+    chain: INPUT
+    jump: REJECT
+    protocol: tcp
+    destination_port: 22
+    ip_version: ipv6
+  notify: persist iptables rules
+  tags:
+    - security
+    - firewall

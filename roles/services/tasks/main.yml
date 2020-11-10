@@ -1,0 +1,12 @@
+---
+- name: Disable unneeded services
+  systemd:
+    name: "{{ item }}"
+    state: stopped
+    enabled: no
+    masked: yes
+  with_items:
+    - snapd
+  tags:
+    - services
+    - disable_unneeded_services

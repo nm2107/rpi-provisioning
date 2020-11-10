@@ -1,0 +1,30 @@
+---
+- name: Create matching user
+  user:
+    name: "{{ matching_user }}"
+    state: present
+    groups: adm,audio,video,sudo
+    append: yes
+    shell: /bin/bash
+  register: matching_user_created
+  tags:
+    - users
+    - create_matching_user
+
+- name: Set default password (username)
+  user:
+    name: '{{ matching_user }}'
+    password: "{{ matching_user|password_hash('sha512') }}"
+  when: matching_user_created is changed
+  tags:
+    - users
+    - create_matching_user
+
+- name: Mark user default password as expired
+  command: passwd -e {{ matching_user }}
+  args:
+    warn: no
+  when: matching_user_created is changed
+  tags:
+    - users
+    - create_matching_user

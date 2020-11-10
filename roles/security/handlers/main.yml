@@ -1,0 +1,11 @@
+---
+- name: restart sshd
+  service:
+    name: sshd
+    state: restarted
+
+# uses the `iptables-persistent` package
+- name: persist iptables rules
+  command: "netfilter-persistent save"
+  args:
+    warn: no

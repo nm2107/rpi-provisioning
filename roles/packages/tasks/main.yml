@@ -1,0 +1,19 @@
+---
+- name: Remove unneeded packages
+  package:
+    name:
+      - plymouth
+    state: absent
+  tags:
+    - packages
+    - remove_unneeded_packages
+
+- name: Install packages
+  package:
+    name:
+      - alsa-utils
+      - net-tools
+    state: present
+  tags:
+    - packages
+    - install_packages

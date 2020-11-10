@@ -1,0 +1,22 @@
+---
+- name: Install wifi related packages
+  package:
+    name:
+      - wpasupplicant
+      - wireless-tools
+    state: present
+  tags:
+    - wifi
+
+# @see https://linuxconfig.org/ubuntu-20-04-connect-to-wifi-from-command-line
+# @see https://netplan.io/examples/
+- name: Configure netplan for wifi access
+  template:
+    src: 99-wifi.yaml.j2
+    dest: /etc/netplan/99-wifi.yaml
+    mode: 0644
+    owner: root
+    group: root
+  notify: apply netplan config
+  tags:
+    - wifi

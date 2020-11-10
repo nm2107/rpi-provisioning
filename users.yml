@@ -1,0 +1,8 @@
+---
+- hosts: rpi
+  gather_facts: yes
+  become: yes
+  vars_files:
+    - vars/rpi.yml
+  roles:
+    - role: users

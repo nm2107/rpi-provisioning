@@ -1,0 +1,9 @@
+---
+- name: Remove default user
+  user:
+    name: "ubuntu"
+    state: absent
+    remove: yes
+  tags:
+    - users
+    - remove_default_user
