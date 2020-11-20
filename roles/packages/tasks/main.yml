@@ -12,6 +12,7 @@
   package:
     name:
       - alsa-utils
+      - lame
       - net-tools
     state: present
   tags:
