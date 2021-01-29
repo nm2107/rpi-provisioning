@@ -4,8 +4,13 @@ network:
     wifis:
         wlan0:
             access-points:
-                "{{ wifi_network_name }}":
-                    password: "{{ wifi_password }}"
+            {% for wifi_network in wifi_networks %}
+
+                "{{ wifi_network.ssid }}":
+                    password: "{{ wifi_network.password }}"
+
+            {% endfor %}
+
             dhcp4: true
             optional: true
     version: 2

@@ -24,7 +24,7 @@ First, configure your `~/.ssh/config` file in order to set the `rpi` host :
 ```
 # ~/.ssh/config
 Host rpi
-    HostName 192.168.1.x # use `$ nmap -sn 192.168.1.0/24` to figure out
+    HostName 192.168.1.x # use `$ nmap -sL 192.168.1.0/24` to figure out
                          # the IP address
     User <your_username>
     ForwardAgent yes

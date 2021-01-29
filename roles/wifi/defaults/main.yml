@@ -1,0 +1,5 @@
+---
+# Specify wifi networks as an array of objects, e.g. :
+# wifi_networks:
+#   - { ssid: example, password: 3x4mpl3 }
+wifi_networks: []
